@@ -1,8 +1,6 @@
 # text-sql-chatbot
 Redis Database offers unique capability to keep your data fresh while serving through LLM chatbot
 
-
-
 ## Project Setup
 
 ### Spin up a Redis instance enabled with RedisStack!
@@ -34,37 +32,32 @@ Install necessary libraries and dependencies
 pip install -r requirements.txt
 ```
 
-
-
 ### Using the project
 
 #### Update Config
 
-Make sure you update the app.config file. You need a open ai api key to update the config.
+Make sure you update the env file. You need a open ai api key  & a langsmith api key to update the config.
 ```
-vi app.config
-```
-
-#### Load Data
-
-Load the data into redis with embeddings and create index 
-The data file is hosted in GCP bucket
-
-```bash
-curl -L -o utils/data_with_embeddings.csv.gz https://storage.googleapis.com/okon-datasets/data_with_embeddings.csv.gz
+mv env_backup .env
 ```
 
-```bash
-gunzip utils/data_with_embeddings.csv.gz
+```
+vi .env
 ```
 
-```python
-python utils/load_redis.py 
-```
-#### Run application
+#### Load Data 
 
-Run the UI
+**Do not run if not required, below is just to show the workings**
 
-```bash
-streamlit run app/ui.py
 ```
+python  data/load.py
+```
+
+This creates the cars_database.db (sqllite) database.
+
+#### Run the app
+
+```
+python web/app.py
+```
+
