@@ -2,9 +2,9 @@ import csv
 import sqlite3
 
 # File paths
-cars_country_path = 'Cars_Country.csv'
-cars_multi_path = 'Cars_Multi.csv'
-cars_price_path = 'Cars_Price.csv'
+cars_country_path = 'data/Cars_Country.csv'
+cars_multi_path = 'data/Cars_Multi.csv'
+cars_price_path = 'data/Cars_Price.csv'
 
 # Create a SQLite database connection
 conn = sqlite3.connect('cars_database.db')
