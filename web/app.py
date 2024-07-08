@@ -164,6 +164,7 @@ async def main():
             st.dataframe(
                 pd.DataFrame(data=sqlresponse[1:], columns=sqlresponse[0]),
                 hide_index=True,
+                use_container_width=True
             )
             save_toggle = st.toggle(label="Save Results")
             proceed = st.form_submit_button("Proceed")
