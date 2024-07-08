@@ -58,6 +58,6 @@ This creates the cars_database.db (sqllite) database.
 #### Run the app
 
 ```
-python web/app.py
+streamlit run web/app.py
 ```
 

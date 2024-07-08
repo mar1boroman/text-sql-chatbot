@@ -16,6 +16,9 @@ import sqlite3
 from redisvl.extensions.llmcache import SemanticCache
 from redisvl.utils.vectorize import OpenAITextVectorizer
 
+# Load environment variables
+load_dotenv()
+
 OPENAI_API_KEY = os.environ["OPENAI_API_KEY"]
 SQLLITE_URI = "sqlite:///cars_database.db"
 SQLLITE_DB = "cars_database.db"
@@ -23,7 +26,14 @@ SEMANTIC_CACHE_FRESHNESS = 15
 
 db = SQLDatabase.from_uri(SQLLITE_URI)
 llm = ChatOpenAI(model="gpt-3.5-turbo", temperature=0)
-redis_url = "redis://localhost:6379"
+
+redis_host = os.getenv("REDIS_HOST", "localhost")
+redis_port = os.getenv("REDIS_PORT", 6379)
+redis_user = os.getenv("REDIS_USERNAME")
+redis_pass = os.getenv("REDIS_PASSWORD")
+
+redis_url = f"redis://{redis_user}:{redis_pass}@{redis_host}:{redis_port}"
+
 vectorizer = OpenAITextVectorizer(
     model="text-embedding-ada-002",
     api_config={"api_key": OPENAI_API_KEY},
@@ -37,12 +47,9 @@ llmcache = SemanticCache(
     ttl=SEMANTIC_CACHE_FRESHNESS,
 )
 
-# Load environment variables
-load_dotenv()
-
 # Initialize redis
-r = redis.Redis(decode_responses=True)
-r_no_decode = redis.Redis()
+r = redis.Redis(host=redis_host, port=redis_port, username=redis_user, password=redis_pass, decode_responses=True)
+r_no_decode = redis.Redis(host=redis_host, port=redis_port, username=redis_user, password=redis_pass)
 p = r.pipeline()
 
 STAGE_KEY = "stage"
