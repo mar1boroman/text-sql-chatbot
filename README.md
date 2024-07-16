@@ -1,6 +1,20 @@
 # text-sql-chatbot
 Redis Database offers unique capability to keep your data fresh while serving through LLM chatbot
 
+## Features in this demo
+
+### Text to SQL generation based on the database
+
+![](init.gif)
+
+### Delivering results through semantic caching
+
+![](with_semantic_cache.gif)
+
+### Data expiration after 15 seconds to keep cache fresh
+
+![](cacheexpire.gif)
+
 ## Project Setup
 
 ### Spin up a Redis instance enabled with RedisStack!
@@ -55,9 +69,10 @@ python  data/load.py
 
 This creates the cars_database.db (sqllite) database.
 
+If you run this directly, you will get an error since the cars_database.db is already present and there will be unique key constraint violation
+
 #### Run the app
 
 ```
 python web/app.py
 ```
-
