@@ -74,5 +74,5 @@ If you run this directly, you will get an error since the cars_database.db is al
 #### Run the app
 
 ```
-python web/app.py
+streamlit run web/app.py
 ```
